@@ -1,6 +1,12 @@
 import { useState } from "react";
+import { Note } from "../App";
 
-export default function Form() {
+type FormProps = {
+  notes: Note[];
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+};
+
+export default function Form({ notes, setNotes }: FormProps) {
   const [formData, setFormData] = useState({
     title: "",
     priority: "Medium",
@@ -9,12 +15,24 @@ export default function Form() {
   });
 
   function handleChange(e: { target: { value: string; name: string } }) {
-    console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+  function handleSubmit(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (!formData.title || !formData.description) return;
+
+    const newNote ={id: Date.now(),...formData};
+    setNotes([newNote, ...notes])
+    setFormData({
+      title: "",
+      priority: "Medium",
+      category: "Work",
+      description: "",
+    })
   }
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="block">
             Title
