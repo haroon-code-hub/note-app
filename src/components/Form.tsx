@@ -19,16 +19,18 @@ export default function Form({ notes, setNotes }: FormProps) {
   }
   function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
+
+    //update this form validation
     if (!formData.title || !formData.description) return;
 
-    const newNote ={id: Date.now(),...formData};
-    setNotes([newNote, ...notes])
+    const newNote = { id: Date.now(), ...formData };
+    setNotes([newNote, ...notes]);
     setFormData({
       title: "",
       priority: "Medium",
       category: "Work",
       description: "",
-    })
+    });
   }
   return (
     <>
