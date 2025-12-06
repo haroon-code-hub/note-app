@@ -2,9 +2,10 @@ import { Note } from "../App";
 
 type NotesListProps = {
   notes: Note[];
+  deleteNote: (id: number) => void;
 };
 
-export default function NotesList({ notes }: NotesListProps) {
+export default function NotesList({ notes, deleteNote }: NotesListProps) {
   if (notes.length === 0) {
     return <p>No notes yet...</p>;
   }
@@ -26,6 +27,7 @@ export default function NotesList({ notes }: NotesListProps) {
             <strong>Description: </strong>
             {note.description}
           </p>
+          <button onClick={() => deleteNote(note.id)}>Delete</button>
         </div>
       ))}
     </div>
