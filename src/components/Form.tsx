@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Note } from "../App";
+import TextIput from "./inputs/TextInput";
+import SelectInput from "./inputs/SelectInput";
+import TextAreaInput from "./inputs/TextAreaInput";
 
 type FormProps = {
   notes: Note[];
@@ -42,59 +45,60 @@ export default function Form({ notes, setNotes }: FormProps) {
       {isFormVisible && (
         <>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="title" className="block">
-                Title
-              </label>
-              <input
-                type="text"
-                name="title"
-                className="border border-black rounded-lg"
-                value={formData.title}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="priority" className="block">
-                Priority
-              </label>
-              <select
-                name="priority"
-                className="border border-black rounded-lg"
-                value={formData.priority}
-                onChange={handleChange}
-              >
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="category" className="block">
-                Category
-              </label>
-              <select
-                name="category"
-                className="border border-black rounded-lg"
-                value={formData.category}
-                onChange={handleChange}
-              >
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
-                <option value="Ideas">Ideas</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="description" className="block">
-                Description
-              </label>
-              <textarea
-                name="description"
-                className="border border-black rounded-lg"
-                value={formData.description}
-                onChange={handleChange}
-              ></textarea>
-            </div>
+            <TextIput
+              label="Title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+            <SelectInput
+              label="Priority"
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "High",
+                  label: "High",
+                },
+                {
+                  value: "Medium",
+                  label: "Medium",
+                },
+                {
+                  value: "Low",
+                  label: "Low",
+                },
+              ]}
+            />
+            <SelectInput
+              label="Category"
+              name="category"
+              value={formData.priority}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "Work",
+                  label: "Work",
+                },
+                {
+                  value: "Personal",
+                  label: "Personal",
+                },
+                {
+                  value: "Ideas",
+                  label: "Ideas",
+                },
+              ]}
+            />
+            <TextAreaInput
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
             <button className="bg-blue-600 py-2 px-6 border rounded-md cursor-pointer hover:bg-blue-500">
               Submit
             </button>
